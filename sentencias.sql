@@ -27,7 +27,7 @@ ALTER TABLE clientes ADD CONSTRAINT id_tienda_FK
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
--- creo la tabla DATOS_CLIENTES para evitar la redundencia de datos
+-- creo la tabla DATOS_CLIENTES para evitar la redundancia de datos
 CREATE TABLE datos_clientes (
   id_datos_clientes INT NOT NULL AUTO_INCREMENT,
   id_cliente INT NOT NULL,
@@ -169,3 +169,25 @@ INSERT INTO datos_clientes (id_cliente, direccion`, telefono) VALUES (
     2, 'lluvia, 3, madrid', 931237789); 
 INSERT INTO datos_clientes (id_cliente, direccion`, telefono) VALUES (
     3, 'ponzano 3, madrid', 936574487);
+
+INSERT INTO proveedores (id_proveedor, empresa, propietario, telefono, direccion, cif, id_tienda) VALUES (1, 'chuches s.a', 'juan perez ', '982273984', 'rio rosas, 1 madrid', 'B9876123T', 2);
+INSERT INTO `empresa_ventas`.`proveedores` (`empresa`, `propietario`, `telefono`, `direccion`, `cif`, `id_tienda`) VALUES ('bebidas s.l', 'luis jimenez', '982453984', 'madrid rio, 6 madrid ', 'R1234567C', '3');
+INSERT INTO `empresa_ventas`.`proveedores` (`empresa`, `propietario`, `telefono`, `direccion`, `cif`, `id_tienda`) VALUES ('textil s.l ', 'maria perez', '982273943', 'serrano, 3 madrid', 'T2345678Q', '4');
+INSERT INTO `empresa_ventas`.`proveedores` (`empresa`, `propietario`, `telefono`, `direccion`, `cif`, `id_tienda`) VALUES ('alimentacion s.a ', 'luisa morales', '982273912', 'almodovar,  madrid', 'C9876543A', '1');
+
+
+-- debido a la redundancia de datos que tenía en clientes (se repetia el cliente con una calle distinta),
+-- He tenido que reducir el número de clientes es por lo que el que hay que introducir como número 4, 
+-- lo he puesto como el 3.
+
+INSERT INTO ventas (id_venta, id_encargado, id_clientes, articulo, cantidad, precio, fecha) VALUES ('1', '2', '1', 'raton ', '1', '12.12', '2023-12-12');
+
+
+INSERT INTO `empresa_ventas`.`ventas` (`id_venta`, `id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('1', '2', '1', 'raton ', '1', '12.12', '2023-12-12');
+INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('2', '3', 'teclado', '1', '14.32', '2023-12-09');
+INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('2', '2', 'cable usb', '5', '32.2', '2017-11-25');
+INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('3', '3', 'monitor', '1', '121.12', '2022-05-08');
+INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('3', '1', 'disco ssd', '3', '105.23', '2012-06-09');
+INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('3', '1', 'ddr5-3200mhz', '2', '164.45', '2017-11-25');
+INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('1', '2', 'hub tipo c', '1', '14.78', '2023-12-12');
+INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('1', '3', 'cat5e [m]', '50', '11', '2024-03-12');

@@ -253,4 +253,49 @@ INSERT INTO actividades_monitores(id_actividad, id_monitor) VALUES(6,2);
 INSERT INTO actividades_monitores(id_actividad, id_monitor) VALUES(7,3);
 
 
+CREATE TABLE plan_entrenamiento( 
+    id_tablas_entrenamiento INT PRIMARY KEY NOT NULL AUTO_INCREMENT
+    nombre VARCHAR(45) NOT NULL,
+    descripcion VARCHAR(255) NOT NULL,
+    duracion VARCHAR(45) NULL,
+    objetivo VARCHAR(45) NULL,
+    PRIMARY KEY (id_tablas_entrenamiento)
+);
+
+CREATE TABLE socios_planes(
+    id_socios_planes INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id_socios INT NOT NULL,
+    id_planes_entrenamiento, INT NOT NULL,
+    PRIMARY KEY (id_socios_planes, id_socios, id_planes_entrenamiento)
+    INDEX id_socios_pk3_indx (id_socios ASC) VISIBLE
+    INDEX id_planes_entrenamiento_PK(id_planes_entrenamiento ASC) VISIBLE
+    CONSTRAINT id_socios_pk3_indx 
+        FOREIGN KEY (id_socios)
+        REFERENCES tonifica_tu_cuerpo.socios(id_socios)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+    CONSTRAINT id_planes_entrenamiento_PK 
+        FOREIGN KEY (id_planes_entrenamiento)
+        REFERENCES tonifica_tu_cuerpo.id_planes_entrenamiento(id_planes_entrenamiento)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
+
+);
+
+ALTER TABLE planes_entrenamiento
+CHANGE COLUMN objetivo objetivo VARCHAR(150) NULL DEFAULT NULL ;
+
+INSERT INTO planes_entrenamiento (id_planes_entrenamiento, nombre, descripcion, duracion, objetivo) VALUES (1, 'adelgazamiento', 'Plan de 6 semanas para perder peso, con actividades como zumba o spinning, ademas de ejercicios de pesas', '6 semanas', 'perder peso al menos 5kg');
+INSERT INTO planes_entrenamiento` (nombre, descripcion, duracion, objetivo) VALUES ('aumento de peso', 'plan de 6 semanas para coger peso, aumenta tu masa muscular con un plan individualizado de ejercicios de pesas', '6 semanas', 'aumento de 5kg');
+INSERT INTO planes_entrenamiento` (nombre, descripcion, duracion, objetivo) VALUES ('iniciacion', 'plan de 4 semanas para la persona que empieza en el gimnasio, desde carrera continua a ejercicios de funcional, yoga y zumba', '4 semanas', 'iniciacion al gimnasio');
+INSERT INTO planes_entrenamiento` (nombre, descripcion, duracion, objetivo) VALUES ('medio', 'plan de 4 semanas para la persona que ya lleva tiempo en el gimnasio y quiere mejorar su cuerpo', '4 semanas', 'nivel medio para la persona que ya lleva un tiempo entrenando');
+INSERT INTO planes_entrenamiento` (nombre, descripcion, duracion, objetivo) VALUES ('avanazado', 'plan de 6 semanas para la persona que lleva mucho tiempo entrenando y quiere llevar su cuerpo al limite', '6 semanas', 'nivel avanzado en general');
+INSERT INTO planes_entrenamiento` (nombre, descripcion, duracion, objetivo) VALUES ('spinning iniciacion', 'plan de 4 semanas con ejercicios especificos para spining y bicicleta en general', '4 semanas', 'alcanza nivel iniciacion en spinning');
+
+
+INSERT INTO socios_planes (id_socios_planes, id_socios, id_planes_entrenamiento) VALUES (1, 1, 2);
+INSERT INTO socios_planes (id_socios, id_planes_entrenamiento) VALUES (2, 4);
+INSERT INTO socios_planes (id_socios, id_planes_entrenamiento) VALUES (3, 1);
+INSERT INTO socios_planes (id_socios, id_planes_entrenamiento) VALUES (4, 1);
+INSERT INTO socios_planes (id_socios, id_planes_entrenamiento) VALUES (5, 6);
 
