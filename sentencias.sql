@@ -3,21 +3,26 @@
 
 -- crea la base de datos
 CREATE DATABASE empresa_ventas;
+CREATE DATABASE IF NO EXIST empresa_ventas;
 
+-- Borrar BBDD
+DROP DATABASE empresa_ventas;
 -- Que bbdd quieres usar:
-USE empresa;
+USE empresa_ventas;
+-- En Workbench se puede conectar directamente a esta bbdd
 
 -- Crea una tabla, ina PK id_cliente, el dni es UNIQUE así que hay que añadir la última frase
 
-CREATE TABLE clientes(
+CREATE TABLE clientes( --nombre tabla
     id_clientes INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -- nombre columna, tipo de dato, restricción, tambie le puedes poner la primary key  
     nombre VARCHAR(50) NOT NULL,
     apellidos VARCHAR(50) NOT NULL,
     dni VARCHAR(9) NOT NULL UNIQUE,
     nombre_empresa VARCHAR(50) NOT NULL,
     id_tienda INT NOT NULL,
-    PRIMARY KEY (id_cliente),
-    UNIQUE INDEX dni_UNIQUE (dni ASC) VISIBLE);
+    PRIMARY KEY (id_cliente), -- si pones la de arriba no pones la de abajo y al reves
+    UNIQUE INDEX dni_UNIQUE (dni ASC) VISIBLE);-- lo mismo para UNIQUE si lo pones arriba no lo pones abajo
 
 -- Creo la relación CLIENTES-TIENDAS que es de N:1 id_tienda FK
 ALTER TABLE clientes ADD INDEX id_tienda_FK_idx (id_tienda ASC) VISIBLE;
