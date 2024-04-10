@@ -191,3 +191,71 @@ INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`
 INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('3', '1', 'ddr5-3200mhz', '2', '164.45', '2017-11-25');
 INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('1', '2', 'hub tipo c', '1', '14.78', '2023-12-12');
 INSERT INTO `empresa_ventas`.`ventas` (`id_encargado`, `id_clientes`, `articulo`, `cantidad`, `precio`, `fecha`) VALUES ('1', '3', 'cat5e [m]', '50', '11', '2024-03-12');
+
+
+--CONSULTAS
+-- Lista de fechas e importes de las facturas, junto con el nombre y el teléfono del cliente asociado.
+
+SELECT fecha, precio, CONCAT (c.nombre,' ', c.apellidos) AS cliente, datos_clientes.telefono FROM ventas INNER JOIN clientes c ON c.id_clientes=ventas.id_clientes INNER JOIN datos_clientes ON datos_clientes.id_cliente=c.id_clientes ORDER BY ventas.fecha ASC ;
+-- 2012-06-09	105.23	francisco aparicio juarez	982393212
+-- 2012-06-09	105.23	francisco aparicio juarez	
+-- 2017-11-25	164.45	francisco aparicio juarez	982393212
+-- 2017-11-25	164.45	francisco aparicio juarez	
+-- 2017-11-25	32.20	maria bravo osorio	931237789
+-- 2022-05-08	121.12	luis rodriguez sanz	936574487
+-- 2023-12-09	14.32	luis rodriguez sanz	936574487
+-- 2023-12-12	12.12	francisco aparicio juarez	982393212
+-- 2023-12-12	12.12	francisco aparicio juarez	
+-- 2023-12-12	14.78	maria bravo osorio	931237789
+-- 2024-03-12	11.00	luis rodriguez sanz	936574487
+
+-- Las distintas cantidades de material comprado.
+SELECT articulo, cantidad FROM ventas ORDER BY cantidad ASC;
+
+-- raton 	1
+-- teclado	1
+-- monitor	1
+-- hub tipo c	1
+-- ddr5-3200mhz	2
+-- disco ssd	3
+-- cable usb	5
+-- cat5e [m]	50
+
+-- Muestra la lista de todas las ventas desde el día 01/01/2022.
+SELECT fecha FROM ventas WHERE fecha >= '2022-01-01' ORDER BY fecha ASC; 
+
+-- 2022-05-08
+-- 2023-12-09
+-- 2023-12-12
+-- 2023-12-12
+-- 2024-03-12
+
+-- Muestra todos los encargados que tengan el apellido López, quitando todos los valores o campos de identificación.
+SELECT CONCAT(nombre,' ', apellidos) AS nombre FROM encargados WHERE apellidos LIKE '%lopez%';
+
+-- mercedes lopez jimenez
+-- francisco lopez martinez
+
+-- Suma del importe de todas las facturas del día 25/11/2017.
+SELECT SUM(precio) AS importe_total FROM ventas where fecha='2017-11-25';
+-- 196.65
+
+-- Lista de los nombres de los clientes y el nombre del artículo que ha comprado.
+SELECT CONCAT(nombre,' ', apellidos) AS CLIENTE, ventas.articulo FROM clientes INNER JOIN ventas ON clientes.id_clientes = ventas.id_clientes;
+
+-- francisco aparicio juarez	raton 
+-- francisco aparicio juarez	disco ssd
+-- francisco aparicio juarez	ddr5-3200mhz
+-- maria  bravo osorio	cable usb
+-- maria  bravo osorio	hub tipo c
+-- luis rodriguez sanz	teclado
+-- luis rodriguez sanz	monitor
+-- luis rodriguez sanz	cat5e [m]
+
+-- Lista donde aparezca, por cada cliente, la cantidad de compras realizadas.
+SELECT CONCAT(nombre, ' ', apellidos) AS CLIENTE, COUNT(ventas.cantidad) AS CANTIDAD_COMPRAS FROM clientes INNER JOIN ventas ON clientes.id_clientes=ventas.id_clientes GROUP BY CLIENTE;
+-- francisco aparicio juarez	3
+-- maria  bravo osorio	2
+-- luis rodriguez sanz	3
+
+
