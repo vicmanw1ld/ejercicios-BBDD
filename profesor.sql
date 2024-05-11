@@ -3,7 +3,7 @@ CREATE DATABASE campo_deportivo;
 
 USE campo_deportivo;
 
--- Crea una tabla, ina PK id_cliente, el dni es UNIQUE así que hay que añadir la última frase o
+-- Crea una tabla, una PK id_cliente, el dni es UNIQUE así que hay que añadir la última frase o
 -- sE pone en la misma retriccion de dni
 /* CREATE TABLE nombre_tabla(
    nombre_columna1 // Tipo de dato // restriccion,
